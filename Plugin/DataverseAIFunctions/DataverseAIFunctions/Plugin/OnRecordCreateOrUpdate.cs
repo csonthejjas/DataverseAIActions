@@ -20,6 +20,7 @@ namespace DataverseAIFunctions
             AIClassifyRequest request = GetRequest(record);
             OrganizationResponse response = Service.Execute(request);
 
+
             Entity resultEntity = GetResultEntity((string)response.Results["Classification"]);
             Guid resultId = Service.Create(resultEntity);
 

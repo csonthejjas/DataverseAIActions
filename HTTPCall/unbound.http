@@ -1,0 +1,23 @@
+
+# @name login
+POST https://login.microsoftonline.com/{{$dotenv tenandId}}/oauth2/token HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client_credentials&resource={{$dotenv envUrl}}&client_id={{$dotenv clientId}}&client_secret={{$dotenv clientSecret}}
+
+###
+
+@authToken = {{login.response.body.access_token}}
+
+# @name translateText
+POST {{$dotenv envUrl}}/api/data/v9.0/AITranslate HTTP/1.1
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "Text": "Ez egy mondat amit le kell fordítani angolra.",
+  "TargetLanguage": "en"
+}
+
+###
